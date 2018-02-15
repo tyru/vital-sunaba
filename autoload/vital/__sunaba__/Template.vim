@@ -38,7 +38,7 @@ let s:NODE_EXPR = 1
 function! s:_parse(tokens) abort
   let tokens = a:tokens
   let ast = []
-  while !empty(tokens) && tokens[0].type isnot# s:TOKEN_EOF
+  while !empty(tokens)
     let t = remove(tokens, 0)
     if t.type is# s:TOKEN_TEXT
       let node = {str -> {'type': s:NODE_TEXT, 'to_string': {-> str}}}(t.str)
@@ -133,7 +133,6 @@ let s:TOKEN_NUMBER = 4
 let s:TOKEN_STRING = 5
 let s:TOKEN_RAW_STRING = 6
 let s:TOKEN_IDENTIFIER = 7
-let s:TOKEN_EOF = 99
 let s:TOKEN_ERROR = 999
 
 function! s:_new_lexer(input) abort
@@ -225,7 +224,6 @@ function! s:_lex_text(l) abort
   if a:l.pos > a:l.start
     call a:l.emit(s:TOKEN_TEXT)
   endif
-  call a:l.emit(s:TOKEN_EOF)
   return v:null
 endfunction
 
