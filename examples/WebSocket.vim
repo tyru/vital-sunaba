@@ -1,7 +1,10 @@
 
+" WebSocket client to listen chrome debugging protocol
+"
 " Run:
 " 1. mkdir tmp
 " 2. {chrome} --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir=tmp
+" 3. vim -S examples/WebSocket.vim
 "
 " ref. https://developer.mozilla.org/ja/docs/Tools/Remote_Debugging/Chrome_Desktop
 
