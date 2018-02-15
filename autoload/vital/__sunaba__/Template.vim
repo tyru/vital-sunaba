@@ -198,15 +198,6 @@ function! s:_new_lexer(input) abort
     call self.backup()
   endfunction
 
-  function! lexer.next_until(str) abort
-    let pos = stridx(self.input, a:str, self.pos)
-    if pos is# -1
-      return s:EOF
-    endif
-    let self.pos = pos
-    return self.pos
-  endfunction
-
   function! lexer.starts_with(str) abort
     return self.input[self.pos : self.pos + strlen(a:str) - 1] is# a:str
   endfunction
@@ -227,7 +218,6 @@ function! s:_lex_text(l) abort
       endif
       return funcref('s:_lex_left_meta')
     endif
-    " if a:l.next_until(s:LEFT_META) is# s:EOF
     if a:l.next() is# s:EOF
       break
     endif
