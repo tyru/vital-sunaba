@@ -122,7 +122,7 @@ function! s:_lex(expr) abort
   while l:Lex isnot# v:null
     let l:Lex = l:Lex(lexer)
   endwhile
-  return lexer._tokens
+  return lexer.tokens
 endfunction
 
 let s:TOKEN_TEXT = 0
@@ -143,19 +143,19 @@ function! s:_new_lexer(input) abort
   \ 'pos': 0,
   \ 'eof_pos': strlen(a:input),
   \ 'width': 0,
-  \ '_tokens': [],
+  \ 'tokens': [],
   \}
 
   function! lexer.emit(type) abort
     let token = {'type': a:type, 'str': self.input[self.start : self.pos - 1]}
-    let self._tokens += [token]
+    let self.tokens += [token]
     let self.start = self.pos
   endfunction
 
   function! lexer.errorf(fmt, ...) abort
     let msg = a:0 ? call('printf', [a:fmt] + a:000) : a:fmt
     let token = {'type': s:TOKEN_ERROR, 'msg': msg}
-    let self._tokens += [token]
+    let self.tokens += [token]
     return v:null
   endfunction
 
